@@ -19,6 +19,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
+import { MapComponent } from './components/map/map.component';
+
+//map
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,8 @@ import { AngularFireModule } from '@angular/fire';
     FormsComponent,
     OrdersComponent,
     OrdersListComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    MapComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -36,7 +41,10 @@ import { AngularFireModule } from '@angular/fire';
     MaterialModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.configFirebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyC61DFngH8kdZFvQRdUSf8ZgRCTjNf8_98'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

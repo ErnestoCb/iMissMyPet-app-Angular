@@ -74,7 +74,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-main-menu>\n  <app-home></app-home>\n</app-main-menu>"
+module.exports = "<app-main-menu>\r\n  <app-map></app-map>\r\n</app-main-menu>"
 
 /***/ }),
 
@@ -144,6 +144,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
 /* harmony import */ var _angular_fire__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/fire */ "./node_modules/@angular/fire/index.js");
+/* harmony import */ var _components_map_map_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/map/map.component */ "./src/app/components/map/map.component.ts");
+/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
 
 
 
@@ -161,6 +163,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+//map
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -172,7 +177,8 @@ var AppModule = /** @class */ (function () {
                 _components_forms_forms_component__WEBPACK_IMPORTED_MODULE_7__["FormsComponent"],
                 _components_orders_orders_component__WEBPACK_IMPORTED_MODULE_8__["OrdersComponent"],
                 _components_orders_orders_list_orders_list_component__WEBPACK_IMPORTED_MODULE_9__["OrdersListComponent"],
-                _main_menu_main_menu_component__WEBPACK_IMPORTED_MODULE_10__["MainMenuComponent"]
+                _main_menu_main_menu_component__WEBPACK_IMPORTED_MODULE_10__["MainMenuComponent"],
+                _components_map_map_component__WEBPACK_IMPORTED_MODULE_16__["MapComponent"]
             ],
             imports: [
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_3__["BrowserAnimationsModule"],
@@ -181,7 +187,10 @@ var AppModule = /** @class */ (function () {
                 _materials_module__WEBPACK_IMPORTED_MODULE_11__["MaterialModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_12__["ReactiveFormsModule"],
                 _angular_fire__WEBPACK_IMPORTED_MODULE_15__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_13__["environment"].configFirebase),
-                _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__["AngularFirestoreModule"]
+                _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__["AngularFirestoreModule"],
+                _agm_core__WEBPACK_IMPORTED_MODULE_17__["AgmCoreModule"].forRoot({
+                    apiKey: 'AIzaSyC61DFngH8kdZFvQRdUSf8ZgRCTjNf8_98'
+                })
             ],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
@@ -212,7 +221,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  forms works!\n</p>\n"
+module.exports = "<p>\r\n  forms works!\r\n</p>\r\n"
 
 /***/ }),
 
@@ -268,7 +277,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <app-orders></app-orders>\n  <app-orders-list></app-orders-list>\n</div>"
+module.exports = "<div class=\"container\">\r\n  <app-orders></app-orders>\r\n  <app-orders-list></app-orders-list>\r\n</div>"
 
 /***/ }),
 
@@ -306,6 +315,75 @@ var HomeComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/map/map.component.css":
+/*!**************************************************!*\
+  !*** ./src/app/components/map/map.component.css ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "agm-map {\r\n  height: 100vh;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9tYXAvbWFwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxhQUFhO0FBQ2YiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL21hcC9tYXAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbImFnbS1tYXAge1xyXG4gIGhlaWdodDogMTAwdmg7XHJcbn0iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/components/map/map.component.html":
+/*!***************************************************!*\
+  !*** ./src/app/components/map/map.component.html ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<agm-map (mapClick)=\"placeMarker($event)\" [zoom]=\"zoom\" [latitude]=\"lat\" [longitude]=\"lng\">\n  <agm-marker [latitude]=\"lat\" [longitude]=\"lng\"></agm-marker>\n</agm-map>"
+
+/***/ }),
+
+/***/ "./src/app/components/map/map.component.ts":
+/*!*************************************************!*\
+  !*** ./src/app/components/map/map.component.ts ***!
+  \*************************************************/
+/*! exports provided: MapComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MapComponent", function() { return MapComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var MapComponent = /** @class */ (function () {
+    function MapComponent() {
+        var _this = this;
+        this.zoom = 16;
+        if (navigator) {
+            navigator.geolocation.getCurrentPosition(function (pos) {
+                _this.lng = +pos.coords.longitude;
+                _this.lat = +pos.coords.latitude;
+            });
+        }
+    }
+    MapComponent.prototype.placeMarker = function ($event) {
+        console.log($event.coords.lat);
+        console.log($event.coords.lng);
+    };
+    MapComponent.prototype.ngOnInit = function () {
+        console.log("hola " + this.zoom);
+    };
+    MapComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-map',
+            template: __webpack_require__(/*! ./map.component.html */ "./src/app/components/map/map.component.html"),
+            styles: [__webpack_require__(/*! ./map.component.css */ "./src/app/components/map/map.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], MapComponent);
+    return MapComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/components/orders/orders-list/orders-list.component.css":
 /*!*************************************************************************!*\
   !*** ./src/app/components/orders/orders-list/orders-list.component.css ***!
@@ -324,7 +402,7 @@ module.exports = "table {\r\n    width: 100%;\r\n}\r\n\r\n.mat-icon {\r\n    cur
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<table mat-table [dataSource]=\"dataSource\" matSort class=\"mat-elevation-z8\">\n\n  <!-- Order Column -->\n  <ng-container matColumnDef=\"orderNumber\">\n    <th mat-header-cell *matHeaderCellDef mat-sort-header>Numero de Orden </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.orderNumber}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"customerName\">\n    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.customerName}} </td>\n  </ng-container>\n\n  <!-- Product Column -->\n  <ng-container matColumnDef=\"order\">\n    <th mat-header-cell *matHeaderCellDef mat-sort-header> Productos </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.order}} </td>\n  </ng-container>\n\n  <!-- completed Column -->\n  <ng-container matColumnDef=\"completed\">\n    <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.completed}} </td>\n  </ng-container>\n\n  <!-- total Column -->\n  <ng-container matColumnDef=\"total\">\n    <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.totalOrder}}$ </td>\n  </ng-container>\n\n  <ng-container matColumnDef=\"actions\">\n    <th mat-header-cell *matHeaderCellDef> Acciones </th>\n    <td mat-cell *matCellDef=\"let element\">\n      <mat-icon (click)=\"onChangeStatus(element)\">edit</mat-icon>\n      &nbsp;\n      <mat-icon (click)=\"onDelete(element.id)\">delete</mat-icon>\n    </td>\n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n  <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n</table>\n"
+module.exports = "<table mat-table [dataSource]=\"dataSource\" matSort class=\"mat-elevation-z8\">\r\n\r\n  <!-- Order Column -->\r\n  <ng-container matColumnDef=\"orderNumber\">\r\n    <th mat-header-cell *matHeaderCellDef mat-sort-header>Numero de Orden </th>\r\n    <td mat-cell *matCellDef=\"let element\"> {{element.orderNumber}} </td>\r\n  </ng-container>\r\n\r\n  <!-- Name Column -->\r\n  <ng-container matColumnDef=\"customerName\">\r\n    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>\r\n    <td mat-cell *matCellDef=\"let element\"> {{element.customerName}} </td>\r\n  </ng-container>\r\n\r\n  <!-- Product Column -->\r\n  <ng-container matColumnDef=\"order\">\r\n    <th mat-header-cell *matHeaderCellDef mat-sort-header> Productos </th>\r\n    <td mat-cell *matCellDef=\"let element\"> {{element.order}} </td>\r\n  </ng-container>\r\n\r\n  <!-- completed Column -->\r\n  <ng-container matColumnDef=\"completed\">\r\n    <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>\r\n    <td mat-cell *matCellDef=\"let element\"> {{element.completed}} </td>\r\n  </ng-container>\r\n\r\n  <!-- total Column -->\r\n  <ng-container matColumnDef=\"total\">\r\n    <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>\r\n    <td mat-cell *matCellDef=\"let element\"> {{element.totalOrder}}$ </td>\r\n  </ng-container>\r\n\r\n  <ng-container matColumnDef=\"actions\">\r\n    <th mat-header-cell *matHeaderCellDef> Acciones </th>\r\n    <td mat-cell *matCellDef=\"let element\">\r\n      <mat-icon (click)=\"onChangeStatus(element)\">edit</mat-icon>\r\n      &nbsp;\r\n      <mat-icon (click)=\"onDelete(element.id)\">delete</mat-icon>\r\n    </td>\r\n  </ng-container>\r\n\r\n  <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n  <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n</table>\r\n"
 
 /***/ }),
 
@@ -409,7 +487,7 @@ module.exports = ".header-app {\r\n    text-align: center;\r\n}\r\n.buttons-list
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header-app\">\n  <h1>Bienvenido a {{appName}}</h1>\n</div>\n\n<div class=\"buttons-lists\">\n  <button mat-raised-button color=\"primary\" class=\"myButton\" *ngFor=\"let product of products\" (click)=\"onAddProduct(product)\">\n    {{product.name}} / {{product.price}}\n  </button>\n\n  <form [formGroup]=\"this.orderService.myForm\" (ngSubmit)=\"onSubmit()\">\n    <table cellspacing=\"0\">\n      <tr>\n        <td>\n          <mat-form-field>\n            <input matInput #orderNumber maxlength=\"3\" placeholder=\"Order Number\"\n              formControlName=\"orderNumber\">\n          </mat-form-field>\n        </td>\n      </tr>\n      <tr>\n        <td>\n          <mat-form-field>\n            <input matInput #orderNumber maxlength=\"13\" placeholder=\"Customer\"\n              formControlName=\"customerName\">\n          </mat-form-field>\n        </td>\n      </tr>\n      <tr>\n        <td>\n          <button mat-raised-button color=\"primary\" class=\"btn_send\">SEND</button>\n        </td>\n      </tr>\n    </table>\n  </form>\n</div>\n\n<ul class=\"collection\">\n  <li *ngFor=\"let order of tempOrder\">\n    <span>{{order}}</span>\n    <a href=\"#\" (click)=\"removeItemTempOrder(order)\">\n      <mat-icon>delete</mat-icon>\n    </a>\n  </li>\n</ul>"
+module.exports = "<div class=\"header-app\">\r\n  <h1>Bienvenido a {{appName}}</h1>\r\n</div>\r\n\r\n<div class=\"buttons-lists\">\r\n  <button mat-raised-button color=\"primary\" class=\"myButton\" *ngFor=\"let product of products\" (click)=\"onAddProduct(product)\">\r\n    {{product.name}} / {{product.price}}\r\n  </button>\r\n\r\n  <form [formGroup]=\"this.orderService.myForm\" (ngSubmit)=\"onSubmit()\">\r\n    <table cellspacing=\"0\">\r\n      <tr>\r\n        <td>\r\n          <mat-form-field>\r\n            <input matInput #orderNumber maxlength=\"3\" placeholder=\"Order Number\"\r\n              formControlName=\"orderNumber\">\r\n          </mat-form-field>\r\n        </td>\r\n      </tr>\r\n      <tr>\r\n        <td>\r\n          <mat-form-field>\r\n            <input matInput #orderNumber maxlength=\"13\" placeholder=\"Customer\"\r\n              formControlName=\"customerName\">\r\n          </mat-form-field>\r\n        </td>\r\n      </tr>\r\n      <tr>\r\n        <td>\r\n          <button mat-raised-button color=\"primary\" class=\"btn_send\">SEND</button>\r\n        </td>\r\n      </tr>\r\n    </table>\r\n  </form>\r\n</div>\r\n\r\n<ul class=\"collection\">\r\n  <li *ngFor=\"let order of tempOrder\">\r\n    <span>{{order}}</span>\r\n    <a href=\"#\" (click)=\"removeItemTempOrder(order)\">\r\n      <mat-icon>delete</mat-icon>\r\n    </a>\r\n  </li>\r\n</ul>"
 
 /***/ }),
 
@@ -519,7 +597,7 @@ var OrdersComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".sidenav-container {\n  height: 100%;\n}\n\n.sidenav {\n  width: 200px;\n}\n\n.mat-toolbar.mat-primary {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  z-index: 1;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWFpbi1tZW51L21haW4tbWVudS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsWUFBWTtBQUNkOztBQUVBO0VBQ0UsWUFBWTtBQUNkOztBQUVBO0VBQ0Usd0JBQWdCO0VBQWhCLGdCQUFnQjtFQUNoQixNQUFNO0VBQ04sVUFBVTtBQUNaIiwiZmlsZSI6InNyYy9hcHAvbWFpbi1tZW51L21haW4tbWVudS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnNpZGVuYXYtY29udGFpbmVyIHtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG4uc2lkZW5hdiB7XG4gIHdpZHRoOiAyMDBweDtcbn1cblxuLm1hdC10b29sYmFyLm1hdC1wcmltYXJ5IHtcbiAgcG9zaXRpb246IHN0aWNreTtcbiAgdG9wOiAwO1xuICB6LWluZGV4OiAxO1xufVxuIl19 */"
+module.exports = ".sidenav-container {\r\n  height: 100%;\r\n}\r\n\r\n.sidenav {\r\n  width: 200px;\r\n}\r\n\r\n.mat-toolbar.mat-primary {\r\n  position: -webkit-sticky;\r\n  position: sticky;\r\n  top: 0;\r\n  z-index: 1;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWFpbi1tZW51L21haW4tbWVudS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsWUFBWTtBQUNkOztBQUVBO0VBQ0UsWUFBWTtBQUNkOztBQUVBO0VBQ0Usd0JBQWdCO0VBQWhCLGdCQUFnQjtFQUNoQixNQUFNO0VBQ04sVUFBVTtBQUNaIiwiZmlsZSI6InNyYy9hcHAvbWFpbi1tZW51L21haW4tbWVudS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnNpZGVuYXYtY29udGFpbmVyIHtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuXHJcbi5zaWRlbmF2IHtcclxuICB3aWR0aDogMjAwcHg7XHJcbn1cclxuXHJcbi5tYXQtdG9vbGJhci5tYXQtcHJpbWFyeSB7XHJcbiAgcG9zaXRpb246IHN0aWNreTtcclxuICB0b3A6IDA7XHJcbiAgei1pbmRleDogMTtcclxufVxyXG4iXX0= */"
 
 /***/ }),
 
@@ -530,7 +608,7 @@ module.exports = ".sidenav-container {\n  height: 100%;\n}\n\n.sidenav {\n  widt
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport=\"true\"\n      [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n      [mode]=\"(isHandset$ | async) ? 'over' : 'side'\"\n      [opened]=\"!(isHandset$ | async)\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item href=\"#\">Main</a>\n      <a mat-list-item href=\"#\">Reportes</a>\n      <a mat-list-item href=\"#\">Empleados</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button\n        type=\"button\"\n        aria-label=\"Toggle sidenav\"\n        mat-icon-button\n        (click)=\"drawer.toggle()\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>I Miss My Pet</span>\n    </mat-toolbar>\n      <ng-content></ng-content>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n"
+module.exports = "<mat-sidenav-container class=\"sidenav-container\">\r\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport=\"true\"\r\n      [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\r\n      [mode]=\"(isHandset$ | async) ? 'over' : 'side'\"\r\n      [opened]=\"!(isHandset$ | async)\">\r\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\r\n    <mat-nav-list>\r\n      <a mat-list-item href=\"#\">Main</a>\r\n      <a mat-list-item href=\"#\">Reportes</a>\r\n      <a mat-list-item href=\"#\">Empleados</a>\r\n    </mat-nav-list>\r\n  </mat-sidenav>\r\n  <mat-sidenav-content>\r\n    <mat-toolbar color=\"primary\">\r\n      <button\r\n        type=\"button\"\r\n        aria-label=\"Toggle sidenav\"\r\n        mat-icon-button\r\n        (click)=\"drawer.toggle()\">\r\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\r\n      </button>\r\n      <span>I Miss My Pet</span>\r\n    </mat-toolbar>\r\n      <ng-content></ng-content>\r\n  </mat-sidenav-content>\r\n</mat-sidenav-container>\r\n"
 
 /***/ }),
 
@@ -799,7 +877,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Proyectos\angularTest\iMissMyPet\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\riria\Desktop\angularTest\iMissMyPet\src\main.ts */"./src/main.ts");
 
 
 /***/ })
