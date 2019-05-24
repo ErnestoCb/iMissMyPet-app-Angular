@@ -23,4 +23,7 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
+     <string>We want your location! Best regards NSA</string>
+    </edit-config>
 </widget>

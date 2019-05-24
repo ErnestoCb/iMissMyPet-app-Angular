@@ -1,0 +1,15 @@
+.login-main{
+    margin-top: 20%;
+}
+mat-card, mat-card-actions, mat-card-header{
+    
+    text-align: center;
+}
+.logo{
+    width: 200px;
+    height: auto;
+    text-align: center;
+}
+mat-card {
+    margin: 3rem;
+}

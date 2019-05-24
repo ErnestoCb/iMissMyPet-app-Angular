@@ -1,0 +1,24 @@
+<div fxLayout="row" fxLayoutAlign="center center" class="login-main">
+  <mat-card>
+    <mat-card-content fxLayout="column">
+      <img class=logo src="https://www.designfreelogoonline.com/wp-content/uploads/2014/12/00549-Dog-logo-design-free-logos-online-02.png" alt="logo">
+    </mat-card-content>
+    <mat-card-content fxLayout="column">
+      <mat-card-title>Bienvenido</mat-card-title>
+    </mat-card-content>
+    <mat-card-content fxLayout="column">
+      <mat-form-field>
+        <input type="email" matInput #userEmail required placeholder="Correo electronico">
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-content fxLayout="column">
+      <mat-form-field>
+        <input type="password" #userPwd required matInput placeholder="Contraseña">
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button style="width: 60%" mat-raised-button value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)" color="accent">Registrar usuario</button>
+      <button style="width: 60%" mat-raised-button routerLink="/" color="primary">Volver al Login</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
